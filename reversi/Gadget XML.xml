@@ -14,7 +14,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Reversi</title>
-	<script type="text/javascript" src="game.js"></script>
+	<script type="text/javascript" src="https://raw.github.com/1wheel/hangout-checkers/master/reversi/game.js"></script>
 
 </head>
 
