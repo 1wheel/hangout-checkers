@@ -236,11 +236,11 @@ function findFlipLength(x,y,dx,dy,color)
 {	
 	var rv = [];
 	var i = 1;
-	while (onBoard(x+i*dx,x+i*dy) && cArray[x+dx*i][y+dy*i] == -1*color) {
+	while (onBoard(x+i*dx,y+i*dy) && cArray[x+dx*i][y+dy*i] == -1*color) {
 		i++;	
 	}
 	
-	if (i>1 && onBoard(x+i*dx,x+i*dy) && cArray[x+dx*i][y+dy*i] == color) {
+	if (i>1 && onBoard(x+i*dx,y+i*dy) && cArray[x+dx*i][y+dy*i] == color) {
 		
 		for (var j = 0; j<i; j++) {
 			rv[j] = new Object;
@@ -267,62 +267,6 @@ function currentColor(){
 		color = -1 ;
 	}
 	return color;
-}
-
-//Trys to add line to board. Returns true if position is not filled
-function attemptMove(vertical, x, y)
-{
-	var success = false;		//function will return true if line is not filled
-	var switchPlayer = true;	//if no box is completed, player color will switch
-	
-	if (vertical) {
-		if (!vArray[x][y]) {
-			success = true;
-			vArray[x][y] = true;
-			if (boxCompleted(x,y)) {
-				switchPlayer = false;
-			}
-			if (boxCompleted(x-1,y)) {
-				switchPlayer = false;
-			}
-		}
-	}
-	else if (!hArray[x][y]) {
-		success = true;
-		hArray[x][y] = true;
-		if (boxCompleted(x,y)) {
-			switchPlayer = false;
-		}
-		if (boxCompleted(x,y-1)) {
-			switchPlayer = false;
-		}
-	}
-	
-	if (switchPlayer) {
-		blueTurn = !blueTurn;
-	}
-	
-	return success;
-	
-	
-}
-
-//colors a box based on current player color if it is surroned by lines
-//returns true if box has been filled
-function boxCompleted (x, y) {
-	//checks to make sure box is in grid
-	if (0<=x && x<bn && 0<=y && y<bn) {
-		if (vArray[x][y] && vArray[x+1][y] && hArray[x][y] && hArray[x][y+1]) {
-			if (blueTurn) {
-				boxArray[x][y] = -1;
-			}
-			else {
-				boxArray[x][y] = 1;
-			}
-			return true;
-		}
-	}
-	return false;
 }
 
 //finds how much the canvas is offset in the frame
