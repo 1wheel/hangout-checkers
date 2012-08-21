@@ -177,13 +177,6 @@ function click(e)
 	}
 }
 
-//if global state is changed, update global varibles and redraw board
-gapi.hangout.data.onStateChanged(function (event ) {
-	blackTurn = event.state[JSON.parse('blackTurn')];
- 	cArray = event.state[JSON.parse('cArray')];
-    drawBoard();
-});
-
 //finds which line the passed cord is closest to
 function findCord(x, y) 
 {	
@@ -297,5 +290,15 @@ function findPos(obj) {
 gapi.hangout.onApiReady.add(function(eventObj){
 	if (eventObj.isApiReady) {
 		startGame(); 
+		gapi.hangout.data.onStateChanged.add(function(stateChangeEvent) {
+          serverUpdate(stateChangeEvent.state);
+		});
 	}
 });
+
+//if global state is changed, update global varibles and redraw board
+function serverUpdate(event){
+	blackTurn = event.state[JSON.parse('blackTurn')];
+ 	cArray = event.state[JSON.parse('cArray')];
+    drawBoard();
+}
