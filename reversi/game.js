@@ -62,6 +62,7 @@ function drawBoard()
 	drawGrid();
 	
 	//draw pieces placed by players
+	createValidMoveArray();
 	drawPieces();
 	
 	drawScore();
@@ -167,11 +168,21 @@ function click(e)
 			cArray[cord.x][cord.y] = color;
 			
 			blackTurn = !blackTurn;
-			createValidMoveArray();
+			
+			//uploads newboard state
+			gapi.hangout.data.submitDelta({'cArray':JSON.stringify(cArray), board:JSON.stringify(blackTurn)});
+			
 			drawBoard();
 		}
 	}
 }
+
+//if global state is changed, update global varibles and redraw board
+gapi.hangout.data.onStateChanged(function (event ) {
+	blackTurn = event.state[JSON.parse('blackTurn')];
+ 	cArray = event.state[JSON.parse('cArray')];
+    drawBoard();
+});
 
 //finds which line the passed cord is closest to
 function findCord(x, y) 
@@ -282,5 +293,9 @@ function findPos(obj) {
 	return undefined;
 }
 
-
-
+//game starts when hangout API is ready
+gapi.hangout.onApiReady.add(function(eventObj){
+	if (eventObj.isApiReady) {
+		startGame(); 
+	}
+});
