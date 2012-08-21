@@ -172,7 +172,7 @@ function click(e)
 			//uploads newboard state
 			gapi.hangout.data.submitDelta({'cArray':JSON.stringify(cArray), board:JSON.stringify(blackTurn)});
 			
-			drawBoard();
+			//drawBoard();
 		}
 	}
 }
