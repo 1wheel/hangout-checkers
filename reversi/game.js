@@ -343,7 +343,7 @@ function serverUpdate(){
 //updates list of particpants and the presence of switch team buttons
 function participantUpdate(){
 	//team of the local user
-	var team = participantTeam[idIndex(gapihangout.getParticipantId())];
+	var team = participantTeam[idIndex(gapi.hangout.getParticipantId())];
 	
 	//adds buttons
 	addButton('joinBlack',team);
