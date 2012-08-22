@@ -299,7 +299,7 @@ gapi.hangout.onApiReady.add(function(eventObj){
 			//no game running, start a new one
 			startGame(); 
 		}
-		
+		try {
 		//adds the local player to the local team and updates the server
 		participantID[participantID.length] = gapi.hangout.getLocalParticipantId();
 		participantTeam[participantID.length] = 0;
@@ -308,7 +308,11 @@ gapi.hangout.onApiReady.add(function(eventObj){
 		//creates a listener for state changes. calls serverUpdate() when activated
 		gapi.hangout.data.onStateChanged.add(function(stateChangeEvent) {
           serverUpdate(stateChangeEvent.state);
-		});
+		});}
+		catch(e) {
+			alert("error, see log1");
+			log1 = e;
+		}
 	}
 });
 
