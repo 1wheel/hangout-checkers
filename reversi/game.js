@@ -300,9 +300,10 @@ gapi.hangout.onApiReady.add(function(eventObj){
 		try {
 		//adds the local player to the local team and updates the server
 		participantID[participantID.length] = gapi.hangout.getParticipantId();
-		participantTeam[participantID.length] = 0;
+		participantTeam[participantTeam.length] = 0;
 		gapi.hangout.data.submitDelta({participantID:JSON.stringify(participantID), participantTeam:JSON.stringify(participantTeam)});
-
+		
+		
 		//creates a listener for state changes. calls serverUpdate() when activated
 		gapi.hangout.data.onStateChanged.add(function(stateChangeEvent) {
           serverUpdate(stateChangeEvent.state);
