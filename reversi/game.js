@@ -336,12 +336,36 @@ function serverUpdate(){
 
 //updates list of particpants and the presence of switch team buttons
 function participantUpdate(){
+	//team of the local user
+	var team = participantTeam[idIndex(gapihangout.getParticipantId())];
 	
+	//adds buttons
+	addButton('joinBlack',team);
+	addButton('joinNone',team);
+	addButton('joinWhite',team);
+}
+
+function addButton(bName, team){
+	//true if player is currently on team - no join Button displayed
+	if (	(bName == 'joinBlack' && team == 1)
+			||(bName == 'joinNone' && team == 0)
+			||(bName == 'joinWhite' && team == -1)
+	){
+		document.getElementById("bName").innerHTML = "";
+	}
+	//displays join button
+	else {
+		document.getElementById("bName").innerHTML = "<input type='button' value='Join' onclick='changeTeam(" + team + ";)) />";		
+	}
 }
 
 function changeTeam(team){
 	participantTeam[idIndex(gapi.hangout.getParticipantId())] = team;
-	participantUpdate();
+	//sends switch to server
+	gapi.hangout.data.submitDelta({
+			participantID:	JSON.stringify(participantID), 
+			participantTeam:JSON.stringify(participantTeam),
+	});
 }
 	
 //finds index of passed ID in participantID array
@@ -354,7 +378,10 @@ function idIndex(id) {
 		}
 		i++;
 	}
-	return false;
+	//passed id not in array, add entry
+	participantID[i] = id;
+	participantTeam[i] = 0;
+	return i;
 }
 	
 	
