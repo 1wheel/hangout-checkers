@@ -135,7 +135,6 @@ function drawScore()
 	
 	document.getElementById("blackScore").innerHTML = blackScore;
 	document.getElementById("whiteScore").innerHTML = whiteScore;
-		
 }
 
 //counts the total boxes by the passed player color
@@ -300,16 +299,51 @@ gapi.hangout.onApiReady.add(function(eventObj){
 			//no game running, start a new one
 			startGame(); 
 		}
+		
+		//adds the local player to the local team and updates the server
+		participantID[participantID.length] = gapi.hangout.getLocalParticipantId();
+		participantTeam[participantID.length] = 0;
+		gapi.hangout.data.submitDelta({participantID:JSON.stringify(participantID), participantTeam:JSON.stringify(participantTeam)});
+
+		//creates a listener for state changes. calls serverUpdate() when activated
 		gapi.hangout.data.onStateChanged.add(function(stateChangeEvent) {
           serverUpdate(stateChangeEvent.state);
 		});
 	}
 });
 
-//if global state is changed, update global varibles and redraw board
+//if global state is changed, update local copy of global varibles and redraw board
 function serverUpdate(){
 	var state = gapi.hangout.data.getState();
 	blackTurn = JSON.parse(state.blackTurn);
  	cArray = JSON.parse(state.cArray);
+	participantID = JSON.parse(state.participantID);
+	participantTeam = JSON.parse(state.participantTeam);
     drawBoard();
+	participantUpdate();
 }
+
+//updates list of particpants and the presence of switch team buttons
+function participantUpdate(){
+	
+}
+
+function changeTeam(team){
+	participantTeam[idIndex(gapi.hangout.getLocalParticipantId())] = team;
+	participantUpdate();
+}
+	
+//finds index of passed ID in participantID array
+function idIndex(id) {
+	var i = 0;
+	while(i < participantID.length)
+	{
+		if (participantID[i] == id) {
+			return i;
+		}
+		i++;
+	}
+	return false;
+}
+	
+	

@@ -25,17 +25,25 @@
 		<ul class="cf">
 			<li>White Score: <p id='whiteScore'></p></li>
 			<li>foo1</li>
-			<li>bar</li>
+			<li id='joinWhite'></li>
 		</ul>
 		<ul class="cf">
 			<li>foo2</li>
-			<li>bar</li>
+			<li id='joinNone'></li>
 		</ul>	
 		<ul class="cf">
 			<li>Black Score: <p id='blackScore'></p></li>
 			<li>foo3/li>
-			<li>bar</li>
+			<li id='joinBlack'></li>
 		</ul>
+		<ul id=whiteTeam class="cf">
+		</ul>
+		<ul id=noTeam class="cf">
+		</ul>
+		<ul id=blackTeam class="cf">
+		</ul>
+
+
 	</div>​
 </body>
 
