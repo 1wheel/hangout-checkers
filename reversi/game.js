@@ -1,7 +1,7 @@
 //global varibles
 var width = 400;
 var height = 400;
-var bn = 8;		//number of boxs
+var bn = 8;				//number of boxs
 var bs = 400/8; 		//boxsize
 
 var board;			//canvas
@@ -11,6 +11,10 @@ var container;		//holds color score, player names and join button
 var cArray = [];	//array of placed chits
 var vArray = [];	//array of valid moves
 var blackTurn;
+
+//stores participantID and corrisponding team color
+var participantID = [];
+var participantTeam = [];
 
 var log;
 var log1;
@@ -126,21 +130,12 @@ function drawPiece(x, y, color, size)
 //displays filled box count at the bottom of the screen
 function drawScore()
 {	
-	var redScore = findScore(1);
+	var blackScore = findScore(1);
+	var whiteScore = findScore(-1);
 	
-	
-	var blueScore = findScore(-1);
-	context.fillStyle = "rgb(200,200,200)";
-	context.fillText(blueScore, 500, 660);
-	
-	//underlines the score if it is that players turn
-	context.fillStyle = "rgb(200,0,0)";
-	if (blackTurn) {		
-		context.fillRect(90, 670, 62, 4);
-	}
-	else {
-		context.fillRect(490, 670, 62, 4);
-	}		
+	document.getElementById("blackScore") = blackScore;
+	document.getElementById("whiteScore") = whiteScore;
+		
 }
 
 //counts the total boxes by the passed player color

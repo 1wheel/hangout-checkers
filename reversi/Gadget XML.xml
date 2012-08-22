@@ -23,6 +23,7 @@
 	<script type ="text/javascript"> startGame(); </script>
 	<div id="container"> 
 		<ul class="cf">
+			<li>White Score: <id='whiteScore'></></li>
 			<li>foo1</li>
 			<li>bar</li>
 		</ul>
@@ -31,6 +32,7 @@
 			<li>bar</li>
 		</ul>	
 		<ul class="cf">
+			<li>Black Score: <id='blackScore'></></li>
 			<li>foo3/li>
 			<li>bar</li>
 		</ul>
