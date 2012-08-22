@@ -133,8 +133,8 @@ function drawScore()
 	var blackScore = findScore(1);
 	var whiteScore = findScore(-1);
 	
-	document.getElementById("blackScore") = blackScore;
-	document.getElementById("whiteScore") = whiteScore;
+	document.getElementById("blackScore").innerHTML = blackScore;
+	document.getElementById("whiteScore").innerHTML = whiteScore;
 		
 }
 
