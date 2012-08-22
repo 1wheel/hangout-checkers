@@ -1,8 +1,8 @@
 //global varibles
-var width = 700;
-var height = 700;
+var width = 400;
+var height = 400;
 var bn = 8;		//number of boxs
-var bs = 600/8; 		//boxsize
+var bs = 400/8; 		//boxsize
 
 var board;			//canvas
 var context;		//canvas context
