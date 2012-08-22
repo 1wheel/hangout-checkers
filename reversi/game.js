@@ -160,7 +160,6 @@ function click(e)
 		//if line is added to board, redraw lines
 		if (vArray[cord.x][cord.y] != 0) {
 			var flippedChips = findFlipDirections(cord.x, cord.y, color);
-			log = flippedChips;
 			for (var i = 0; i < flippedChips.length; i++) {
 				cArray[flippedChips[i].x][flippedChips[i].y] = color;
 			}
@@ -224,7 +223,6 @@ function findFlipDirections(x,y,color)
 			if (dx != 0 || dy != 0) {
 				flippedChips = findFlipLength(x,y,dx,dy,color);
 				for (var i = 0; i < flippedChips.length; i++) {
-					log1 = flippedChips;
 					rv[rv.length] = flippedChips[i];
 					
 				}
