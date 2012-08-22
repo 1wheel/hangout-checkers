@@ -285,7 +285,8 @@ function findPos(obj) {
 
 //game starts when hangout API is ready
 gapi.hangout.onApiReady.add(function(eventObj){
-	if (eventObj.isApiReady) {
+	if (eventObj.isApiReady) { 
+	try {
 		var state = gapi.hangout.data.getState();
 		
 		if (state.cArray) {
@@ -320,6 +321,11 @@ gapi.hangout.onApiReady.add(function(eventObj){
 			cArray:			JSON.stringify(cArray), 
 			blackTurn:		JSON.stringify(blackTurn)
 		});
+	}
+	catch(e) {
+		alert("init error");
+		log = e;
+	}
 	}
 });
 
