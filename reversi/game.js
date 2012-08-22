@@ -289,6 +289,7 @@ gapi.hangout.onApiReady.add(function(eventObj){
 	try {
 		var state = gapi.hangout.data.getState();
 		
+		//checks to see if game has already been created
 		if (state.cArray) {
 			//game already running, join it
 			setupCanvasObjects();
@@ -298,11 +299,27 @@ gapi.hangout.onApiReady.add(function(eventObj){
 			//no game running, start a new one
 			startGame();
 		}
-
+		
+		//checks to see if there are other players present
+		if (state.participantID) {
+			participantID = JSON.parse(state.participantID);
+			participantTeam = JSON.parse(state.participantTeam);
+		}
+			
 		//adds the local player to team and saves id
-		//rejoin code needs to be fixed
 		participantID[participantID.length] = gapi.hangout.getParticipantId();
-		participantTeam[participantTeam.length] = 0;
+		participantTeam[participantTeam.length] = 0; 
+		
+		//rejoining creates a duplicate memembers - removes those
+		for(var i = 0; i <participantID.length; i++) {
+			for(var j = i + 1; j<participantID.length; j++) {
+				if (participantID[i] == participantID[j]) {
+					participantID.splice(j,j);
+					participantTeam.splice(j,j);
+				}
+			}
+		}
+					
 		
 		//creates a listener for state changes. calls serverUpdate() when activated
 		gapi.hangout.data.onStateChanged.add(function(stateChangeEvent) {
