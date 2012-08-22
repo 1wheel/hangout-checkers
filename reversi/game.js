@@ -357,11 +357,11 @@ function addButton(bName, team){
 			||(bName == 'joinNone' && team == 0)
 			||(bName == 'joinWhite' && team == -1)
 	){
-		document.getElementById("bName").innerHTML = "";
+		document.getElementById(bName).innerHTML = "";
 	}
 	//displays join button
 	else {
-		document.getElementById("bName").innerHTML = "<input type='button' value='Join' onclick='changeTeam(" + team + ";)) />";		
+		document.getElementById(bName).innerHTML = "<input type='button' value='Join' onclick='changeTeam(" + team + ";)) />";		
 	}
 }
 
