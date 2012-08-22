@@ -170,7 +170,7 @@ function click(e)
 			blackTurn = !blackTurn;
 			
 			//uploads newboard state
-			gapi.hangout.data.submitDelta({'cArray':JSON.stringify(cArray), board:JSON.stringify(blackTurn)});
+			gapi.hangout.data.submitDelta({cArray:JSON.stringify(cArray), blackTurn:JSON.stringify(blackTurn)});
 			
 			//drawBoard();
 		}
@@ -297,8 +297,11 @@ gapi.hangout.onApiReady.add(function(eventObj){
 });
 
 //if global state is changed, update global varibles and redraw board
-function serverUpdate(event){
-	blackTurn = event.state[JSON.parse('blackTurn')];
- 	cArray = event.state[JSON.parse('cArray')];
+function serverUpdate(){
+	var state = gapi.hangout.data.getState();
+	saveState = state;
+	alert("state update!");
+	blackTurn = JSON.parse(state.blackTurn);
+ 	cArray = JSON.parse(state.cArray);
     drawBoard();
 }
