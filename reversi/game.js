@@ -299,7 +299,7 @@ gapi.hangout.onApiReady.add(function(eventObj){
 		}
 		try {
 		//adds the local player to the local team and updates the server
-		participantID[participantID.length] = gapi.hangout.getLocalParticipantId();
+		participantID[participantID.length] = gapi.hangout.getParticipantId();
 		participantTeam[participantID.length] = 0;
 		gapi.hangout.data.submitDelta({participantID:JSON.stringify(participantID), participantTeam:JSON.stringify(participantTeam)});
 
@@ -331,7 +331,7 @@ function participantUpdate(){
 }
 
 function changeTeam(team){
-	participantTeam[idIndex(gapi.hangout.getLocalParticipantId())] = team;
+	participantTeam[idIndex(gapi.hangout.getParticipantId())] = team;
 	participantUpdate();
 }
 	
