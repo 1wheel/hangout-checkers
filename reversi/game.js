@@ -300,6 +300,7 @@ gapi.hangout.onApiReady.add(function(eventObj){
 		}
 
 		//adds the local player to team and saves id
+		//rejoin code needs to be fixed
 		participantID[participantID.length] = gapi.hangout.getParticipantId();
 		participantTeam[participantTeam.length] = 0;
 		
@@ -353,15 +354,25 @@ function participantUpdate(){
 
 function addButton(bName, team){
 	//true if player is currently on team - no join Button displayed
-	if (	(bName == 'joinBlack' && team == 1)
-			||(bName == 'joinNone' && team == 0)
-			||(bName == 'joinWhite' && team == -1)
-	){
+	if (buttonNameToTeam(bName) == team ) {
 		document.getElementById(bName).innerHTML = "";
 	}
 	//displays join button
 	else {
-		document.getElementById(bName).innerHTML = "<input type='button' value='Join' onclick='changeTeam(" + team + ";)) />";		
+		document.getElementById(bName).innerHTML = "<input type='button' value='Join' onclick='changeTeam(" + buttonNameToTeam(bName) + ");' />";		
+	}
+}
+
+//takes a button name and returns a team number
+function buttonNameToTeam(bName) {
+	if (bName == 'joinBlack') {
+		return 1;
+	}
+	else if (bName == 'joinNone') {
+		return 0;
+	}
+	else if (bName == 'joinWhite') {
+		return -1;
 	}
 }
 
