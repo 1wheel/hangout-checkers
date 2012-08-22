@@ -6,19 +6,18 @@ var bs = 400/8; 		//boxsize
 
 var board;			//canvas
 var context;		//canvas context
+var container;		//holds color score, player names and join button
+
 var cArray = [];	//array of placed chits
 var vArray = [];	//array of valid moves
 var blackTurn;
 
 var log;
 var log1;
+
 //initilizes empty arrays representing game state
 function startGame() 
 {
-	board = document.getElementById("board");
-	context = board.getContext("2d"); 
-	context.font = "50pt Calibri";
-	
 	//fills cArray with 0s
 	for (var x = 0; x < bn; x++) {
 		cArray[x] = [];
@@ -38,11 +37,18 @@ function startGame()
 	//sets starting player
 	blackTurn = true;
 	
-	createValidMoveArray();
+	setupCanvasObjects();
+}
+
+//creates on context object and listener
+function setupCanvasObjects() {
+	board = document.getElementById("board");
+	context = board.getContext("2d"); 
+	context.font = "50pt Calibri";	
 	
+	container = document.getElementById("container");
 	//listens for clicks on the board	
 	board.addEventListener("mousedown",click,false);
-	drawBoard();
 }
 
 //clears canvas and redraws board
@@ -121,8 +127,7 @@ function drawPiece(x, y, color, size)
 function drawScore()
 {	
 	var redScore = findScore(1);
-	context.fillStyle = "rgb(00,0,0)";
-	context.fillText(redScore, 100, 660);
+	
 	
 	var blueScore = findScore(-1);
 	context.fillStyle = "rgb(200,200,200)";
@@ -289,7 +294,17 @@ function findPos(obj) {
 //game starts when hangout API is ready
 gapi.hangout.onApiReady.add(function(eventObj){
 	if (eventObj.isApiReady) {
-		startGame(); 
+		var state = gapi.hangout.data.getState();
+		
+		if (state.cArray) {
+			//game already running, join it
+			setupCanvasObjects();
+			serverUpdate();
+		}
+		else {
+			//no game running, start a new one
+			startGame(); 
+		}
 		gapi.hangout.data.onStateChanged.add(function(stateChangeEvent) {
           serverUpdate(stateChangeEvent.state);
 		});
@@ -299,7 +314,6 @@ gapi.hangout.onApiReady.add(function(eventObj){
 //if global state is changed, update global varibles and redraw board
 function serverUpdate(){
 	var state = gapi.hangout.data.getState();
-	saveState = state;
 	blackTurn = JSON.parse(state.blackTurn);
  	cArray = JSON.parse(state.cArray);
     drawBoard();
