@@ -1,0 +1,14 @@
+#container ul 
+{
+    width: 200px;
+    float: left;
+    margin-bottom: 20px;
+}
+
+ul:nth-child(4n) {
+    clear:left;
+}
+
+.cf:before, .cf:after { content: ""; display: table; }
+.cf:after { clear: both; }
+.cf { zoom: 1; }?

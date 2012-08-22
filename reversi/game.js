@@ -300,7 +300,6 @@ gapi.hangout.onApiReady.add(function(eventObj){
 function serverUpdate(){
 	var state = gapi.hangout.data.getState();
 	saveState = state;
-	alert("state update!");
 	blackTurn = JSON.parse(state.blackTurn);
  	cArray = JSON.parse(state.cArray);
     drawBoard();

@@ -8,7 +8,7 @@
     <![CDATA[
 	<script src="//hangoutsapi.talkgadget.google.com/hangouts/_/api/hangout.js?v=1.1"></script>
     
-	
+	<link rel="stylesheet" href="https://raw.github.com/1wheel/hangout-checkers/master/reversi/css/footer.css" />	
 	<!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +21,22 @@
 <body onResize = "drawBoard()">	
 	<canvas id="board" width="700" height="700"> </canvas>
 	<script type ="text/javascript"> startGame(); </script>
+	<div id="container"> 
+		<ul class="cf">
+			<li>foo1</li>
+			<li>bar</li>
+		</ul>
+		<ul class="cf">
+			<li>foo2</li>
+			<li>bar</li>
+		</ul>	
+		<ul class="cf">
+			<li>foo3/li>
+			<li>bar</li>
+		</ul>
+	</div>​
 </body>
+
 </html>
 
 
