@@ -158,7 +158,7 @@ function click(e)
 	var cord = findCord(e.pageX - pos.x, e.pageY - pos.y);
 	if (cord) {
 		//if click is on the board, see if it is valid move
-		if (vArray[cord.x][cord.y] != 0 && ) {
+		if (vArray[cord.x][cord.y] != 0) {
 			//checks to see if it is the local player's turn
 			if (participantTeam[idIndex(gapi.hangout.getParticipantId())] == color) {
 				var flippedChips = findFlipDirections(cord.x, cord.y, color);
