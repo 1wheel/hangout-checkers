@@ -157,20 +157,21 @@ function click(e)
 	var pos = findPos(this);
 	var cord = findCord(e.pageX - pos.x, e.pageY - pos.y);
 	if (cord) {
-		//if line is added to board, redraw lines
-		if (vArray[cord.x][cord.y] != 0) {
-			var flippedChips = findFlipDirections(cord.x, cord.y, color);
-			for (var i = 0; i < flippedChips.length; i++) {
-				cArray[flippedChips[i].x][flippedChips[i].y] = color;
+		//if click is on the board, see if it is valid move
+		if (vArray[cord.x][cord.y] != 0 && ) {
+			//checks to see if it is the local player's turn
+			if (participantTeam[idIndex(gapi.hangout.getParticipantId())] == color) {
+				var flippedChips = findFlipDirections(cord.x, cord.y, color);
+				for (var i = 0; i < flippedChips.length; i++) {
+					cArray[flippedChips[i].x][flippedChips[i].y] = color;
+				}
+				cArray[cord.x][cord.y] = color;
+				
+				blackTurn = !blackTurn;
+				
+				//uploads newboard state
+				gapi.hangout.data.submitDelta({cArray:JSON.stringify(cArray), blackTurn:JSON.stringify(blackTurn)});
 			}
-			cArray[cord.x][cord.y] = color;
-			
-			blackTurn = !blackTurn;
-			
-			//uploads newboard state
-			gapi.hangout.data.submitDelta({cArray:JSON.stringify(cArray), blackTurn:JSON.stringify(blackTurn)});
-			
-			//drawBoard();
 		}
 	}
 }
