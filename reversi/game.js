@@ -369,9 +369,9 @@ function participantUpdate(){
 	addButton('joinNone',team);
 	addButton('joinWhite',team);
 	
-	document.getElementById(blackPlayers).innerHTML = findTeamMembers(1);
-	document.getElementById(nonePlayers).innerHTML = findTeamMembers(0);
-	document.getElementById(blackPlayers).innerHTML = findTeamMembers(-1);
+	document.getElementById('blackPlayers').innerHTML = findTeamMembers(1);
+	document.getElementById('nonePlayers').innerHTML = findTeamMembers(0);
+	document.getElementById('whitePlayers').innerHTML = findTeamMembers(-1);
 
 }
 
