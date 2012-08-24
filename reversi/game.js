@@ -377,7 +377,7 @@ function participantUpdate(){
 
 function findTeamMembers(team) {
 	var rv = "";
-	for (var i = 1; i < participantTeam.length; i++){
+	for (var i = 0; i < participantTeam.length; i++){
 		if (participantTeam[i] == team) {
 			rv = rv + " " + gapi.hangout.getParticipantById(participantID[i]).person.displayName;
 		}
