@@ -23,9 +23,9 @@
     <script type ="text/javascript"> startGame(); </script>
     
     <div id="white"> 
-            <li>White Score: <nobr id='whiteScore'></nobr> <li>
-            <li id='joinWhite'></li>             
-            <li id='whitePlayers'>whitePlayers</li>
+            <li>White Score: <nobr  id='whiteScore'></nobr> </li>
+            <li id='joinWhite'></li>
+            <li id='whitePlayers'>whitePlayers</li>        
    </div>
             
     <div id="none"> 
@@ -42,7 +42,6 @@
 
 
 </body>​
-
 </html>
 
 

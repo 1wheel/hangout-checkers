@@ -368,6 +368,21 @@ function participantUpdate(){
 	addButton('joinBlack',team);
 	addButton('joinNone',team);
 	addButton('joinWhite',team);
+	
+	document.getElementById(blackPlayers).innerHTML = findTeamMembers(1);
+	document.getElementById(nonePlayers).innerHTML = findTeamMembers(0);
+	document.getElementById(blackPlayers).innerHTML = findTeamMembers(-1);
+
+}
+
+function findTeamMembers(team) {
+	var rv = "";
+	for (var i = 1; i < participantTeam.length; i++){
+		if (participantTeam[i] == team) {
+			rv = rv + " " + gapi.hangout.getParticipantById(participantID[i]).person.displayName;
+		}
+	}
+	return rv;
 }
 
 function addButton(bName, team){
@@ -394,6 +409,7 @@ function buttonNameToTeam(bName) {
 	}
 }
 
+//passed a team color and changes to it
 function changeTeam(team){
 	participantTeam[idIndex(gapi.hangout.getParticipantId())] = team;
 	//sends switch to server
