@@ -18,34 +18,30 @@
 
 </head>
 
-<body onResize = "drawBoard()">	
-	<canvas id="board" width="400" height="400"> </canvas>
-	<script type ="text/javascript"> startGame(); </script>
-	<div id="container"> 
-		<ul class="cf">
-			<li>White Score: <p id='whiteScore'></p></li>
-			<li>foo1</li>
-			<li id='joinWhite'></li>
-		</ul>
-		<ul class="cf">
-			<li>foo2</li>
-			<li id='joinNone'></li>
-		</ul>	
-		<ul class="cf">
-			<li>Black Score: <p id='blackScore'></p></li>
-			<li>foo3/li>
-			<li id='joinBlack'></li>
-		</ul>
-		<ul id=whiteTeam class="cf">
-		</ul>
-		<ul id=noTeam class="cf">
-		</ul>
-		<ul id=blackTeam class="cf">
-		</ul>
+<body onResize = "drawBoard()">    
+    <canvas id="board" width="400" height="400"> </canvas>
+    <script type ="text/javascript"> startGame(); </script>
+    
+    <div id="white"> 
+            <li>White Score: <nobr id='whiteScore'></nobr> <li>
+            <li id='joinWhite'></li>             
+            <li id='whitePlayers'>whitePlayers</li>
+   </div>
+            
+    <div id="none"> 
+            <li id='updateField'>Unassigned</li>
+            <li id='joinNone'></li>
+            <li id='nonePlayers'>nonePlayers</li>
+    </div>  
+            
+    <div id="black"> 
+            <li>Black Score: <nobr  id='blackScore'></nobr> </li>
+            <li id='joinBlack'></li>
+            <li id='blackPlayers'>blackPlayers</li>        
+    </div>
 
 
-	</div>​
-</body>
+</body>​
 
 </html>
 
