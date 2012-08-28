@@ -51,7 +51,9 @@ function startGame()
 	setupCanvasObjects();
 	
 	//updates info display
-	var gameStarter = gapi.hangout.getParticipantById(gapi.hangout.getParticipantId()).person.displayName;
+	var gameStarterID = gapi.hangout.getParticipantId();
+	var gameStarterObject = gapi.hangout.getParticipantById(gameStarterID);
+	var gameStarterName = gameStarterObject.person.displayName;
 	document.getElementById("info").innerHTML = gameStarter + " has started a new game";
 }
 
@@ -325,7 +327,7 @@ gapi.hangout.onApiReady.add(function(eventObj){
 		var state = gapi.hangout.data.getState();
 		
 		//checks to see if game has already been created
-		if (state.cArray) {
+		if (state.cArray.length !=0) {
 			//game already running, join it
 			setupCanvasObjects();
 			serverUpdate();
