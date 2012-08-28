@@ -322,12 +322,12 @@ function findPos(obj) {
 
 //game starts when hangout API is ready
 gapi.hangout.onApiReady.add(function(eventObj){
-	if (eventObj.isApiReady && 0 == 1) { 
+	if (eventObj.isApiReady) { 
 	try {
 		var state = gapi.hangout.data.getState();
 		
 		//checks to see if game has already been created
-		if (state.cArray.length !=0) {
+		if ( !typeof state.cArray === 'undefined') {
 			//game already running, join it
 			setupCanvasObjects();
 			serverUpdate();
