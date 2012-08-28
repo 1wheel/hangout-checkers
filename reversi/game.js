@@ -51,7 +51,7 @@ function startGame()
 	setupCanvasObjects();
 	
 	//updates info display
-	var gameStarter = gapi.hangout.getParticipantId().person.displayName;
+	var gameStarter = gapi.hangout.getParticipantById(gapi.hangout.getParticipantId()).person.displayName;
 	document.getElementById("info").innerHTML = gameStarter + " has started a new game";
 }
 
