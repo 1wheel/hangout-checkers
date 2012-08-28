@@ -160,7 +160,7 @@ function endGame()
 	if (findScore(1)>findScore(-1)){
 		winnerText = "Black Wins! "
 	}
-	if (findScore(-1)>findScore(1)){
+	else if (findScore(-1)>findScore(1)){
 		winnerText = "White Wins! "
 	}
 	else {		
