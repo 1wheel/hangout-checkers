@@ -20,7 +20,7 @@
 
 <body onResize = "drawBoard()">    
     <canvas id="board" width="400" height="400"> </canvas>
-    <script type ="text/javascript"> startGame(); </script>
+    <script type ="text/javascript">  </script>
     
     <div id="white"> 
             <li>White Score: <nobr  id='whiteScore'></nobr> </li>
