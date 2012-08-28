@@ -40,6 +40,8 @@
             <li id='blackPlayers'>blackPlayers</li>        
     </div>
 
+	<div id="info">
+	</div>
 
 </body>​
 </html>

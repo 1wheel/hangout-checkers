@@ -41,7 +41,18 @@ function startGame()
 	//sets starting player
 	blackTurn = true;
 	
+	
+	//updates server with starting game layout
+	gapi.hangout.data.submitDelta({
+			cArray:			JSON.stringify(cArray), 
+			blackTurn:		JSON.stringify(blackTurn)
+		});	
+		
 	setupCanvasObjects();
+	
+	//updates info display
+	var gameStarter = gapi.hangout.getParticipantId().person.displayName;
+	document.getElementById("info").innerHTML = gameStarter + " has started a new game";
 }
 
 //creates on context object and listener
@@ -73,6 +84,10 @@ function drawBoard()
 	
 	//draw pieces placed by players
 	createValidMoveArray();
+	if (vArray.forEach == 0){
+		endGame();
+	}
+	
 	drawPieces();
 	
 	drawScore();
@@ -135,6 +150,25 @@ function drawScore()
 	
 	document.getElementById("blackScore").innerHTML = blackScore;
 	document.getElementById("whiteScore").innerHTML = whiteScore;
+}
+
+//called when there are no valid moves. adds a button to start new game
+function endGame()
+{
+	//creates Winner text
+	var winnerText;
+	if (findScore(1)>findScore(-1){
+		winnerText = "Black Wins! "
+	}
+	if (findScore(-1)>findScore(1){
+		winnerText = "White Wins! "
+	}
+	else {		
+		winnerText = "Tie Game! Maybe there are no winners in war. "
+	}
+	
+	//updates info div with winner info and button to start new game
+	document.getElementById("info").innerHTML = winnerText + "<input type='button' value='Start New Game' onclick='startGame();' />"
 }
 
 //counts the total boxes by the passed player color
@@ -321,7 +355,6 @@ gapi.hangout.onApiReady.add(function(eventObj){
 			}
 		}
 					
-		
 		//creates a listener for state changes. calls serverUpdate() when activated
 		gapi.hangout.data.onStateChanged.add(function(stateChangeEvent) {
 			try {
@@ -333,12 +366,10 @@ gapi.hangout.onApiReady.add(function(eventObj){
 			}
 		});		
 		
-		//updates server with game info
+		//updates server with particpant info
 		gapi.hangout.data.submitDelta({
 			participantID:	JSON.stringify(participantID), 
 			participantTeam:JSON.stringify(participantTeam),
-			cArray:			JSON.stringify(cArray), 
-			blackTurn:		JSON.stringify(blackTurn)
 		});
 	}
 	catch(e) {
