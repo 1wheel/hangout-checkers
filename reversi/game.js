@@ -157,10 +157,10 @@ function endGame()
 {
 	//creates Winner text
 	var winnerText;
-	if (findScore(1)>findScore(-1){
+	if (findScore(1)>findScore(-1)){
 		winnerText = "Black Wins! "
 	}
-	if (findScore(-1)>findScore(1){
+	if (findScore(-1)>findScore(1)){
 		winnerText = "White Wins! "
 	}
 	else {		
