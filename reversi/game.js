@@ -383,13 +383,19 @@ gapi.hangout.onApiReady.add(function(eventObj){
 
 //if global state is changed, update local copy of global varibles and redraw board
 function serverUpdate(){
-	var state = gapi.hangout.data.getState();
-	blackTurn = JSON.parse(state.blackTurn);
- 	cArray = JSON.parse(state.cArray);
-	participantID = JSON.parse(state.participantID);
-	participantTeam = JSON.parse(state.participantTeam);
-    drawBoard();
-	participantUpdate();
+	try {
+		var state = gapi.hangout.data.getState();
+		blackTurn = JSON.parse(state.blackTurn);
+		cArray = JSON.parse(state.cArray);
+		participantID = JSON.parse(state.participantID);
+		participantTeam = JSON.parse(state.participantTeam);
+		drawBoard();
+		participantUpdate();
+	}
+	catch(e)
+	{
+		log2 = e;
+	}
 }
 
 //updates list of particpants and the presence of switch team buttons
