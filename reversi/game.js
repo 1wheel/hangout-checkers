@@ -54,7 +54,7 @@ function startGame()
 	var gameStarterID = gapi.hangout.getParticipantId();
 	var gameStarterObject = gapi.hangout.getParticipantById(gameStarterID);
 	var gameStarterName = gameStarterObject.person.displayName;
-	document.getElementById("info").innerHTML = gameStarter + " has started a new game";
+	document.getElementById("info").innerHTML = gameStarterName + " has started a new game";
 }
 
 //creates on context object and listener
