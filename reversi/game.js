@@ -322,7 +322,7 @@ function findPos(obj) {
 
 //game starts when hangout API is ready
 gapi.hangout.onApiReady.add(function(eventObj){
-	if (eventObj.isApiReady) { 
+	if (eventObj.isApiReady && 0 == 1) { 
 	try {
 		var state = gapi.hangout.data.getState();
 		
