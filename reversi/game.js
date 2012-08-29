@@ -396,9 +396,9 @@ function serverUpdate(){
 		var state = gapi.hangout.data.getState();
 		blackTurn = JSON.parse(state.blackTurn);
 		cArray = JSON.parse(state.cArray);
+		drawBoard();
 		participantID = JSON.parse(state.participantID);
 		participantTeam = JSON.parse(state.participantTeam);
-		drawBoard();
 		participantUpdate();
 	}
 	catch(e)
