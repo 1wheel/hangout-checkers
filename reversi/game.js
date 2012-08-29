@@ -10,6 +10,13 @@ var container;		//holds color score, player names and join button
 
 var cArray = [];	//array of placed chits
 var vArray = [];	//array of valid moves
+	for (var x = 0; x < bn; x++) {
+		vArray[x] = [];
+		for (var y = 0; y < bn; y++) {
+			vArray[x][y] = 0;
+		}
+	}
+
 var blackTurn;
 
 //stores participantID and corrisponding team color
@@ -244,9 +251,6 @@ function findCord(x, y)
 
 //find valid moves
 function createValidMoveArray() {
-	//makes vArray the proper size
-	vArray = cArray;
-
 	//cycles through every board space, finding those with valid moves
 	var color = currentColor();
 	for (var x = 0; x < bn; x++) {
