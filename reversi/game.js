@@ -244,6 +244,10 @@ function findCord(x, y)
 
 //find valid moves
 function createValidMoveArray() {
+	//makes vArray the proper size
+	vArray = cArray;
+
+	//cycles through every board space, finding those with valid moves
 	var color = currentColor();
 	for (var x = 0; x < bn; x++) {
 		for (var y = 0; y < bn; y++) {
