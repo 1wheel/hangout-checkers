@@ -10,14 +10,15 @@ var container;		//holds color score, player names and join button
 
 var cArray = [];	//array of placed chits
 var vArray = [];	//array of valid moves
-	for (var x = 0; x < bn; x++) {
-		vArray[x] = [];
-		for (var y = 0; y < bn; y++) {
-			vArray[x][y] = 0;
-		}
+for (var x = 0; x < bn; x++) {
+	vArray[x] = [];
+	for (var y = 0; y < bn; y++) {
+		vArray[x][y] = 0;
 	}
+}
 
 var blackTurn;
+var infoDisplay = "";
 
 //stores participantID and corrisponding team color
 var participantID = [];
@@ -49,19 +50,23 @@ function startGame()
 	blackTurn = true;
 	
 	
-	//updates server with starting game layout
-	gapi.hangout.data.submitDelta({
-			cArray:			JSON.stringify(cArray), 
-			blackTurn:		JSON.stringify(blackTurn)
-		});	
-		
+	
 	setupCanvasObjects();
 	
 	//updates info display
 	var gameStarterID = gapi.hangout.getParticipantId();
 	var gameStarterObject = gapi.hangout.getParticipantById(gameStarterID);
 	var gameStarterName = gameStarterObject.person.displayName;
-	document.getElementById("info").innerHTML = gameStarterName + " has started a new game";
+	infoDisplay = gameStarterName + " has started a new game";	
+	
+	
+	//updates server with starting game layout
+	gapi.hangout.data.submitDelta({
+		cArray:			JSON.stringify(cArray), 
+		blackTurn:		JSON.stringify(blackTurn),
+		infoDisplay:	infoDisplay
+	});	
+
 }
 
 //creates on context object and listener
@@ -91,24 +96,11 @@ function drawBoard()
 	//draw grid
 	drawGrid();
 	
-	//draw pieces placed by players
-	createValidMoveArray();
-	var vEmpty = true;
-	for(var i = 0; i < bn; i++){
-		for(var j = 0; j < bn; j++){
-			if (vArray[i][j] != 0) {
-				vEmpty = false;
-			}
-		}
-	}
-
-	if (vEmpty){
-		endGame();
-	}
-	
+	//draw pieces placed by players	
 	drawPieces();
 	
 	drawScore();
+	document.getElementById("info").innerHTML = infoDisplay;
 }	
 
 //draws grid of lines 
@@ -186,7 +178,7 @@ function endGame()
 	}
 	
 	//updates info div with winner info and button to start new game
-	document.getElementById("info").innerHTML = winnerText + "<input type='button' value='Start New Game' onclick='startGame();' />"
+	infoDisplay = winnerText + "<input type='button' value='Start New Game' onclick='startGame();' />";
 }
 
 //counts the total boxes by the passed player color
@@ -223,6 +215,21 @@ function click(e)
 				
 				//uploads newboard state
 				gapi.hangout.data.submitDelta({cArray:JSON.stringify(cArray), blackTurn:JSON.stringify(blackTurn)});
+				
+				createValidMoveArray();
+				var vEmpty = true;
+				for(var i = 0; i < bn; i++){
+					for(var j = 0; j < bn; j++){
+						if (vArray[i][j] != 0) {
+							vEmpty = false;
+						}
+					}
+				}
+				
+				if (vEmpty){
+					endGame();
+				}
+				
 			}
 		}
 	}
@@ -340,61 +347,61 @@ function findPos(obj) {
 //game starts when hangout API is ready
 gapi.hangout.onApiReady.add(function(eventObj){
 	if (eventObj.isApiReady) { 
-	try {
-		var state = gapi.hangout.data.getState();
-		
-		//checks to see if game has already been created
-		if (typeof state.cArray != 'undefined') {
-			//game already running, join it
-			setupCanvasObjects();
-			serverUpdate();
-		}
-		else {
-			//no game running, start a new one
-			startGame();
-		}
-		
-		//checks to see if there are other players present
-		if (state.participantID) {
-			participantID = JSON.parse(state.participantID);
-			participantTeam = JSON.parse(state.participantTeam);
-		}
+		try {
+			var state = gapi.hangout.data.getState();
 			
-		//adds the local player to team and saves id
-		participantID[participantID.length] = gapi.hangout.getParticipantId();
-		participantTeam[participantTeam.length] = 0; 
-		
-		//rejoining creates a duplicate memembers - removes those
-		for(var i = 0; i <participantID.length; i++) {
-			for(var j = i + 1; j<participantID.length; j++) {
-				if (participantID[i] == participantID[j]) {
-					participantID.splice(j,j);
-					participantTeam.splice(j,j);
+			//checks to see if game has already been created
+			if (typeof state.cArray != 'undefined') {
+				//game already running, join it
+				setupCanvasObjects();
+				serverUpdate();
+			}
+			else {
+				//no game running, start a new one
+				startGame();
+			}
+			
+			//checks to see if there are other players present
+			if (state.participantID) {
+				participantID = JSON.parse(state.participantID);
+				participantTeam = JSON.parse(state.participantTeam);
+			}
+			
+			//adds the local player to team and saves id
+			participantID[participantID.length] = gapi.hangout.getParticipantId();
+			participantTeam[participantTeam.length] = 0; 
+			
+			//rejoining creates a duplicate memembers - removes those
+			for(var i = 0; i <participantID.length; i++) {
+				for(var j = i + 1; j<participantID.length; j++) {
+					if (participantID[i] == participantID[j]) {
+						participantID.splice(j,j);
+						participantTeam.splice(j,j);
+					}
 				}
 			}
+			
+			//creates a listener for state changes. calls serverUpdate() when activated
+			gapi.hangout.data.onStateChanged.add(function(stateChangeEvent) {
+				try {
+					serverUpdate(stateChangeEvent.state);
+				}
+				catch (e) {
+					alert("update error");
+					log1 = e;
+				}
+			});		
+			
+			//updates server with particpant info
+			gapi.hangout.data.submitDelta({
+				participantID:	JSON.stringify(participantID), 
+				participantTeam:JSON.stringify(participantTeam),
+			});
 		}
-					
-		//creates a listener for state changes. calls serverUpdate() when activated
-		gapi.hangout.data.onStateChanged.add(function(stateChangeEvent) {
-			try {
-				serverUpdate(stateChangeEvent.state);
-			}
-			catch (e) {
-				alert("update error");
-				log1 = e;
-			}
-		});		
-		
-		//updates server with particpant info
-		gapi.hangout.data.submitDelta({
-			participantID:	JSON.stringify(participantID), 
-			participantTeam:JSON.stringify(participantTeam),
-		});
-	}
-	catch(e) {
-		alert("init error");
-		log = e;
-	}
+		catch(e) {
+			alert("init error");
+			log = e;
+		}
 	}
 });
 
@@ -404,6 +411,7 @@ function serverUpdate(){
 		var state = gapi.hangout.data.getState();
 		blackTurn = JSON.parse(state.blackTurn);
 		cArray = JSON.parse(state.cArray);
+		infoDisplay = state.infoDisplay;
 		drawBoard();
 		participantID = JSON.parse(state.participantID);
 		participantTeam = JSON.parse(state.participantTeam);
@@ -428,7 +436,7 @@ function participantUpdate(){
 	document.getElementById('blackPlayers').innerHTML = findTeamMembers(1);
 	document.getElementById('nonePlayers').innerHTML = findTeamMembers(0);
 	document.getElementById('whitePlayers').innerHTML = findTeamMembers(-1);
-
+	
 }
 
 function findTeamMembers(team) {
@@ -470,11 +478,11 @@ function changeTeam(team){
 	participantTeam[idIndex(gapi.hangout.getParticipantId())] = team;
 	//sends switch to server
 	gapi.hangout.data.submitDelta({
-			participantID:	JSON.stringify(participantID), 
-			participantTeam:JSON.stringify(participantTeam),
+		participantID:	JSON.stringify(participantID), 
+		participantTeam:JSON.stringify(participantTeam),
 	});
 }
-	
+
 //finds index of passed ID in participantID array
 function idIndex(id) {
 	var i = 0;
@@ -490,5 +498,4 @@ function idIndex(id) {
 	participantTeam[i] = 0;
 	return i;
 }
-	
-	
+
