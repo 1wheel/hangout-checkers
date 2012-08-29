@@ -180,6 +180,10 @@ function endGame()
 	
 	//updates info div with winner info and button to start new game
 	infoDisplay = winnerText + "<input type='button' value='Start New Game' onclick='startGame();' />";
+	gapi.hangout.data.submitDelta({
+		infoDisplay:	infoDisplay
+	});	
+
 }
 
 //counts the total boxes by the passed player color
