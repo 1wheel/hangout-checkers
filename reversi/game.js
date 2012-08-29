@@ -96,6 +96,7 @@ function drawBoard()
 	//draw grid
 	drawGrid();
 	
+	createValidMoveArray();
 	//draw pieces placed by players	
 	drawPieces();
 	
