@@ -336,7 +336,7 @@ gapi.hangout.onApiReady.add(function(eventObj){
 		var state = gapi.hangout.data.getState();
 		
 		//checks to see if game has already been created
-		if (typeof state.cArray === 'undefined') {
+		if (typeof state.cArray == 'undefined') {
 			//game already running, join it
 			setupCanvasObjects();
 			serverUpdate();
