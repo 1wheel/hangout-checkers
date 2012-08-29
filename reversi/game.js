@@ -86,7 +86,16 @@ function drawBoard()
 	
 	//draw pieces placed by players
 	createValidMoveArray();
-	if (vArray.forEach == 0){
+	var vEmpty = true;
+	for(var i = 0; i < bn; i++){
+		for(var j = 0; j < bn; j++){
+			if (vArray[i][j] != 0) {
+				vEmpty = false;
+			}
+		}
+	}
+
+	if (vEmpty){
 		endGame();
 	}
 	
@@ -327,7 +336,7 @@ gapi.hangout.onApiReady.add(function(eventObj){
 		var state = gapi.hangout.data.getState();
 		
 		//checks to see if game has already been created
-		if ( !typeof state.cArray === 'undefined') {
+		if (typeof state.cArray === 'undefined') {
 			//game already running, join it
 			setupCanvasObjects();
 			serverUpdate();
