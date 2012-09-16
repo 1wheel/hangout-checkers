@@ -511,7 +511,17 @@ function idIndex(id) {
 	return i;
 }
 
+//positions video canvas to take up largest possible area without covering board
 function positionVideoCanvas() {
+	maxHeight = document.height;
+	maxWidth = document.width - 550;
+
+	if (maxWidth/maxHeight > VC.getAspectRatio()){
+		VC.setHeight = maxHeight;
+	}
+	else {
+		VC.setWidth = maxWidth;
+	}
 	VC.setPosition(580,0);
-	VC.setVisable(true);
+	VC.setVisible(true);
 }
