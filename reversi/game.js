@@ -517,10 +517,10 @@ function positionVideoCanvas() {
 	maxWidth = document.width - 550;
 
 	if (maxWidth/maxHeight > VC.getAspectRatio()){
-		VC.setHeight = maxHeight;
+		VC.setHeight(maxHeight);
 	}
 	else {
-		VC.setWidth = maxWidth;
+		VC.setWidth(maxWidth);
 	}
 	VC.setPosition(580,0);
 	VC.setVisible(true);
