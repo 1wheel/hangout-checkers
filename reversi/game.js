@@ -448,7 +448,7 @@ function findTeamMembers(team) {
 	var rv = "";
 	for (var i = 0; i < participantTeam.length; i++){
 		if (participantTeam[i] == team) {
-			rv = rv + " " + gapi.hangout.getParticipantById(participantID[i]).person.displayName;
+			rv = rv + " " + gapi.hangout.getParticipantById(participantID[i]).person.displayName + "<br />";
 		}
 	}
 	return rv;
