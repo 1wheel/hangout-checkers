@@ -513,8 +513,8 @@ function idIndex(id) {
 
 //positions video canvas to take up largest possible area without covering board
 function positionVideoCanvas() {
-	maxHeight = document.height;
-	maxWidth = document.width - 550;
+	maxHeight = window.innerHeight;
+	maxWidth = window.innerWidth - 550;
 
 	if (maxWidth/maxHeight > VC.getAspectRatio()){
 		VC.setHeight(maxHeight);
