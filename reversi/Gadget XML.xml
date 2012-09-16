@@ -24,20 +24,23 @@
     
     <div id="white"> 
             <li>White Score: <nobr  id='whiteScore'></nobr> </li>
+            <li id='whitePlayers'>whitePlayers</li> 
             <li id='joinWhite'></li>
-            <li id='whitePlayers'>whitePlayers</li>        
+       
    </div>
             
     <div id="none"> 
             <li id='updateField'>Unassigned</li>
+            <li id='nonePlayers'>nonePlayers</li>            
             <li id='joinNone'></li>
-            <li id='nonePlayers'>nonePlayers</li>
+
     </div>  
             
     <div id="black"> 
             <li>Black Score: <nobr  id='blackScore'></nobr> </li>
+            <li id='blackPlayers'>blackPlayers</li>            
             <li id='joinBlack'></li>
-            <li id='blackPlayers'>blackPlayers</li>        
+        
     </div>
 
 	<div id='info'>

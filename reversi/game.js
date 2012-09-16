@@ -24,6 +24,9 @@ var infoDisplay = "";
 var participantID = [];
 var participantTeam = [];
 
+//video canvas, display to the right of gameboard and info
+var VC;
+
 var log;
 var log1;
 
@@ -402,6 +405,10 @@ gapi.hangout.onApiReady.add(function(eventObj){
 				participantID:	JSON.stringify(participantID), 
 				participantTeam:JSON.stringify(participantTeam),
 			});
+
+			//adds videos canvas to the display
+			VC = gapi.hangout.layout.getVideoCanvas();
+			positionVideoCanvas();
 		}
 		catch(e) {
 			alert("init error");
@@ -504,3 +511,7 @@ function idIndex(id) {
 	return i;
 }
 
+function positionVideoCanvas() {
+	VC.setPosition(580,0);
+	VC.setVisable(true);
+}
