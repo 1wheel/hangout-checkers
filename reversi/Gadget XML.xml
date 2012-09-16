@@ -23,21 +23,21 @@
     <script type ="text/javascript">  </script>
     
     <div id="white"> 
-            <li>White Score: <nobr  id='whiteScore'></nobr> </li>
+            <li class='teamName' >White Score: <nobr  id='whiteScore'></nobr> </li>
             <li id='whitePlayers'>whitePlayers</li> 
             <li id='joinWhite'></li>
        
    </div>
             
     <div id="none"> 
-            <li id='updateField'>Unassigned</li>
+            <li class='teamName' id='updateField'>Unassigned</li>
             <li id='nonePlayers'>nonePlayers</li>            
             <li id='joinNone'></li>
 
     </div>  
             
     <div id="black"> 
-            <li>Black Score: <nobr  id='blackScore'></nobr> </li>
+            <li class='teamName' >Black Score: <nobr  id='blackScore'></nobr> </li>
             <li id='blackPlayers'>blackPlayers</li>            
             <li id='joinBlack'></li>
         

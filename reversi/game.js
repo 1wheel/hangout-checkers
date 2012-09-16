@@ -76,7 +76,6 @@ function startGame()
 function setupCanvasObjects() {
 	board = document.getElementById("board");
 	context = board.getContext("2d"); 
-	context.font = "50pt Calibri";	
 	
 	container = document.getElementById("container");
 	//listens for clicks on the board	
@@ -327,7 +326,7 @@ function onBoard(x, y) {
 	return (0 <= x && x <= 7 && 0 <= y && y <= 7);
 }
 
-//finds color of the player
+//finds whose turn it is
 function currentColor(){
 	var color;
 	if (blackTurn) {
