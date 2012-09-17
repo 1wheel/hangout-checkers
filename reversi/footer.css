@@ -1,20 +1,20 @@
 #white{
  position:absolute;
- top:415;
+ top:430;
  left:10px;
  width:200px;
 }
 
 #none{
  position:absolute;
- top:415px;
+ top:430px;
  left:180px;
  width:200px;
 }
 
 #black{
  position:absolute;
- top:315px;
+ top:430px;
  left:300px;
  width:200px;
 }
